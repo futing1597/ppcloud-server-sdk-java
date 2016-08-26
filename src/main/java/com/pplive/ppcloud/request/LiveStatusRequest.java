@@ -1,0 +1,44 @@
+/**
+ * PPLive Inc.
+ * Copyright (c) 2007-2016 All Rights Reserved.
+ */
+
+package com.pplive.ppcloud.request;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * @author chaogao
+ *
+ */
+public class LiveStatusRequest {
+	
+	/**
+	 * 视频webid
+	 */
+	@JsonProperty("channel_web_id")
+	private String channelWebId;
+	
+	/**
+	 * 客户端Ip
+	 */
+	@JsonIgnore
+	private String clientIp;
+
+	public String getChannelWebId() {
+		return channelWebId;
+	}
+
+	public void setChannelWebId(String channelWebId) {
+		this.channelWebId = channelWebId;
+	}
+
+	public String getClientIp() {
+		return clientIp;
+	}
+
+	public void setClientIp(String clientIp) {
+		this.clientIp = clientIp;
+	}
+}
