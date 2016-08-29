@@ -17,6 +17,11 @@ public class HostConstants {
 	public static final String HOST_URL = "http://svc.pptvyun.com";
 	
 	/**
+	 * m3u8播放地址
+	 */
+	public static final String M3U8_PLAY_URL = "http://player.pptvyun.com/svc/m3u8player/pl/%s.m3u8";
+	
+	/**
 	 * 创建直播接口
 	 */
 	public static final String CREATE_LIVE_URL = "/svc/api3/live";

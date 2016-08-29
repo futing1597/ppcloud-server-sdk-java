@@ -28,6 +28,11 @@ public class LivePreviewInfoModel {
 	private String live2Url;
 	
 	/**
+	 * m3u8 播放地址
+	 */
+	private String m3u8Url;
+	
+	/**
 	 * 错误代码
 	 */
 	@JsonIgnore
@@ -61,6 +66,14 @@ public class LivePreviewInfoModel {
 
 	public void setLive2Url(String live2Url) {
 		this.live2Url = live2Url;
+	}
+
+	public String getM3u8Url() {
+		return m3u8Url;
+	}
+
+	public void setM3u8Url(String m3u8Url) {
+		this.m3u8Url = m3u8Url;
 	}
 
 	public String getErr() {

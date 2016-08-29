@@ -4,6 +4,9 @@
  */
 package com.pplive.ppcloud.quick;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.pplive.ppcloud.HostConstants;
 import com.pplive.ppcloud.LiveProtocol;
 import com.pplive.ppcloud.live.LiveManager;
 import com.pplive.ppcloud.quick.model.LivePreviewInfoModel;
@@ -35,7 +38,7 @@ public class LiveWatchManager {
 	public LivePreviewInfoModel watch(String channelWebId, String clientIp) {
 		LiveWatchRequest lWatchRequest = new LiveWatchRequest();
 		lWatchRequest.setChannelWebId(channelWebId);
-		lWatchRequest.setChannelWebId(clientIp);
+		lWatchRequest.setClientIp(clientIp);
 		return watch(lWatchRequest);
 	}
 	
@@ -91,6 +94,10 @@ public class LiveWatchManager {
 			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.LIVE2.toString())) {
 				lPreviewInfoModel.setLive2Url(pString);
 			}
+			if (StringUtils.isNotEmpty(lWatchRequest.getChannelWebId())) {
+				lPreviewInfoModel.setM3u8Url(String.format(HostConstants.M3U8_PLAY_URL, lWatchRequest.getChannelWebId()));
+			}
+			
 		}
 		
 		return lPreviewInfoModel;
