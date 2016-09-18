@@ -23,11 +23,6 @@ public class LivePreviewInfoModel {
 	private String rtmpUrl;
 	
 	/**
-	 * live2 播放地址
-	 */
-	private String live2Url;
-	
-	/**
 	 * m3u8 播放地址
 	 */
 	private String m3u8Url;
@@ -58,14 +53,6 @@ public class LivePreviewInfoModel {
 
 	public void setRtmpUrl(String rtmpUrl) {
 		this.rtmpUrl = rtmpUrl;
-	}
-
-	public String getLive2Url() {
-		return live2Url;
-	}
-
-	public void setLive2Url(String live2Url) {
-		this.live2Url = live2Url;
 	}
 
 	public String getM3u8Url() {

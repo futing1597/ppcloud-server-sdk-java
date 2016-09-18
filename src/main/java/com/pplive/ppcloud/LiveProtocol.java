@@ -1,8 +1,7 @@
 package com.pplive.ppcloud;
 
 public enum LiveProtocol {
-	RTMP("rtmp"),
-	LIVE2("live2");
+	RTMP("rtmp");
 	
 	private String protocol;
 	

@@ -13,7 +13,8 @@ public enum LiveStatus {
 	PREVIEW("preview"),
 	LIVING("living"),
 	PAUSE("pause"),
-	STOPPED("stopped");
+	STOPPED("stopped"),
+	BROKEN("broken");
 	
 	private String lstat;
 	

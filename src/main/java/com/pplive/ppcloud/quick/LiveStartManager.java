@@ -83,9 +83,6 @@ public class LiveStartManager {
 			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
 				protoStr = "rtmp";
 			}
-			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.LIVE2.toString())) {
-				protoStr = "http";
-			}
 			if (lWatchMediaResponse.getChannels().length > 0) {
 				pString = String.format("%s://%s%s/%s", 
 						protoStr,
@@ -94,10 +91,7 @@ public class LiveStartManager {
 						lWatchMediaResponse.getChannels()[0].getName());
 			}
 			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
-				lPreviewInfoModel.setRtmpUrl(pString);
-			}
-			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.LIVE2.toString())) {
-				lPreviewInfoModel.setLive2Url(pString);
+				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
 			}
 		}
 		

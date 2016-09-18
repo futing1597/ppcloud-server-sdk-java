@@ -7,7 +7,10 @@ package com.pplive.ppcloud.live;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +30,7 @@ import com.pplive.ppcloud.response.BaseResponse;
 import com.pplive.ppcloud.response.LiveCreateData;
 import com.pplive.ppcloud.response.LiveCreateResponse;
 import com.pplive.ppcloud.response.LiveInfoData;
+import com.pplive.ppcloud.response.LiveInfoListData;
 import com.pplive.ppcloud.response.LiveInfoResponse;
 import com.pplive.ppcloud.response.LivePublishUrlData;
 import com.pplive.ppcloud.response.LivePublishUrlResponse;
@@ -277,6 +281,29 @@ public class LiveManager {
 			response.setMsg(liveInfoData.getMsg());
 		}
 		return response;
+	}
+	
+	/**
+	 * 获取直播列表
+	 * @param request LiveInfoRequest 实体对象
+	 * @return LiveInfoResponse 实体对象列表
+	 * @throws URISyntaxException 
+	 */
+	public List<LiveInfoResponse> getLivingList(LiveInfoRequest request) throws URISyntaxException {
+		List<LiveInfoResponse> responseList = null;
+		setHeader();
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(new URI(HostConstants.HOST_URL+HostConstants.GET_LIVE_LIST_URL), 
+				headerMap,request);
+		LogUtils.log(String.format("getLivingList response: %s", jsonRes));
+		if (StringUtils.isNotEmpty(jsonRes)) {
+			LiveInfoListData liveInfoListData = JsonUtils.fromJsonString(jsonRes, LiveInfoListData.class);
+			if ("0".equals(liveInfoListData.getErr())) {
+				responseList = Arrays.asList(liveInfoListData.getData());
+			} else {
+				responseList = new ArrayList<LiveInfoResponse>();
+			}
+		}
+		return responseList;
 	}
 	
 	private void setHeader() {

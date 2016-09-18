@@ -78,9 +78,6 @@ public class LiveWatchManager {
 			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
 				protoStr = "rtmp";
 			}
-			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.LIVE2.toString())) {
-				protoStr = "http";
-			}
 			if (lWatchMediaResponse.getChannels().length > 0) {
 				pString = String.format("%s://%s%s/%s", 
 						protoStr,
@@ -89,10 +86,7 @@ public class LiveWatchManager {
 						lWatchMediaResponse.getChannels()[0].getName());
 			}
 			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
-				lPreviewInfoModel.setRtmpUrl(pString);
-			}
-			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.LIVE2.toString())) {
-				lPreviewInfoModel.setLive2Url(pString);
+				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
 			}
 			if (StringUtils.isNotEmpty(lWatchRequest.getChannelWebId())) {
 				lPreviewInfoModel.setM3u8Url(String.format(HostConstants.M3U8_PLAY_URL, lWatchRequest.getChannelWebId()));

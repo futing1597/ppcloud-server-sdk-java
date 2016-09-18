@@ -72,7 +72,7 @@ public class LiveCreateManager {
 		liveCreateRequest.setTitle(title);
 		liveCreateRequest.setMode(mode);
 		liveCreateRequest.setStartTime(System.currentTimeMillis());
-		liveCreateRequest.setEndTime(System.currentTimeMillis()+12*3600000);//默认12个小时
+		liveCreateRequest.setEndTime(System.currentTimeMillis()+4*3600000);//默认4个小时
 		liveCreateRequest.setNickName(nickname);
 		
 		LiveCreateResponse liveCreateResponse = null;

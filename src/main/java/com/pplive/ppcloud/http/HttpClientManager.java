@@ -57,8 +57,6 @@ public class HttpClientManager {
 		private static HttpClientManager instance = new HttpClientManager(20000,50000);
 	}
 	
-	
-//	private static final Logger logger = LoggerFactory.getLogger(HttpClientManager.class);
     private PoolingClientConnectionManager cm = new PoolingClientConnectionManager();
     private DefaultHttpClient httpClient;
     private static final String defaultCharsetStr = "UTF-8";

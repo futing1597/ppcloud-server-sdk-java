@@ -97,7 +97,7 @@ public class LiveInfoResponse extends BaseResponse {
 	 * 直播状态
 	 */
 	@JsonProperty("live_status")
-	private Integer liveStatus;
+	private String liveStatus;
 	
 	/**
 	 * 视频时长(单位:秒)
@@ -128,6 +128,12 @@ public class LiveInfoResponse extends BaseResponse {
 	 */
 	@JsonProperty("time_limit")
 	private Integer timeLimit;
+	
+	/**
+	 * 直转点状态(dealing:正在处理中;fail:直转点失败;success:直转点成功)
+	 */
+	@JsonProperty("live_vod_status")
+	private Integer liveVodStatus;
 
 	public Long getId() {
 		return id;
@@ -241,11 +247,11 @@ public class LiveInfoResponse extends BaseResponse {
 		this.transcodeStatus = transcodeStatus;
 	}
 
-	public Integer getLiveStatus() {
+	public String getLiveStatus() {
 		return liveStatus;
 	}
 
-	public void setLiveStatus(Integer liveStatus) {
+	public void setLiveStatus(String liveStatus) {
 		this.liveStatus = liveStatus;
 	}
 
@@ -287,5 +293,13 @@ public class LiveInfoResponse extends BaseResponse {
 
 	public void setTimeLimit(Integer timeLimit) {
 		this.timeLimit = timeLimit;
+	}
+
+	public Integer getLiveVodStatus() {
+		return liveVodStatus;
+	}
+
+	public void setLiveVodStatus(Integer liveVodStatus) {
+		this.liveVodStatus = liveVodStatus;
 	}
 }
