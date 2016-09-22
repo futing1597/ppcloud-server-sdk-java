@@ -11,6 +11,7 @@ import com.pplive.ppcloud.LiveProtocol;
 import com.pplive.ppcloud.live.LiveManager;
 import com.pplive.ppcloud.quick.model.LivePreviewInfoModel;
 import com.pplive.ppcloud.request.LiveWatchRequest;
+import com.pplive.ppcloud.response.LiveWatchMediaChannelCftItemResponse;
 import com.pplive.ppcloud.response.LiveWatchMediaResponse;
 import com.pplive.ppcloud.response.LiveWatchResponse;
 
@@ -77,6 +78,8 @@ public class LiveWatchManager {
 			String protoStr = "";
 			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
 				protoStr = "rtmp";
+			} else if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.HDL.toString())) {
+				protoStr = "http";
 			}
 			if (lWatchMediaResponse.getChannels().length > 0) {
 				pString = String.format("%s://%s%s/%s", 
@@ -85,8 +88,28 @@ public class LiveWatchManager {
 						lWatchMediaResponse.getChannels()[0].getPath(),
 						lWatchMediaResponse.getChannels()[0].getName());
 			}
-			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
+			
+			String mProtocol = lWatchMediaResponse.getProtocol();
+			if (LiveProtocol.RTMP.toString().equalsIgnoreCase(mProtocol)) {
 				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
+				
+				if (lWatchMediaResponse.getChannels()[0].getCft() != null) {
+					String[] rtmpsUrl = new String[lWatchMediaResponse.getChannels()[0].getCft().getItem().length];
+					int rtmpIndex = 0;
+					for(LiveWatchMediaChannelCftItemResponse itemResponse:lWatchMediaResponse.getChannels()[0].getCft().getItem()) {
+						rtmpsUrl[rtmpIndex++] = String.format("%s://%s%s/%s?ppyunid=%s&cpn=%s", 
+								protoStr,
+								lWatchMediaResponse.getChannels()[0].getAddr()[0],
+								lWatchMediaResponse.getChannels()[0].getPath(),
+								itemResponse.getName(),
+								lWatchResponse.getPpyunid(),
+								lWatchResponse.getCpn());
+					}
+					lPreviewInfoModel.setRtmpsUrl(rtmpsUrl);
+				}
+				
+			} else if (LiveProtocol.HDL.toString().equalsIgnoreCase(mProtocol)) {
+				lPreviewInfoModel.setHdlUrl(String.format("%s.flv?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
 			}
 			if (StringUtils.isNotEmpty(lWatchRequest.getChannelWebId())) {
 				lPreviewInfoModel.setM3u8Url(String.format(HostConstants.M3U8_PLAY_URL, lWatchRequest.getChannelWebId()));

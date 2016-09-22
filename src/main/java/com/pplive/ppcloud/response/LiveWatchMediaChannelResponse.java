@@ -55,6 +55,16 @@ public class LiveWatchMediaChannelResponse {
 	 * bwt
 	 */
 	private Integer bwt;
+	
+	/**
+	 * 校验key
+	 */
+	private String key;
+	
+	/**
+	 * 多码流信息
+	 */
+	private LiveWatchMediaChannelCftResponse cft;
 
 	public Long getStarttime() {
 		return starttime;
@@ -126,5 +136,21 @@ public class LiveWatchMediaChannelResponse {
 
 	public void setBwt(Integer bwt) {
 		this.bwt = bwt;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public LiveWatchMediaChannelCftResponse getCft() {
+		return cft;
+	}
+
+	public void setCft(LiveWatchMediaChannelCftResponse cft) {
+		this.cft = cft;
 	}
 }

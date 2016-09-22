@@ -287,7 +287,7 @@ public class LiveManager {
 	 * 获取直播列表
 	 * @param request LiveInfoRequest 实体对象
 	 * @return LiveInfoResponse 实体对象列表
-	 * @throws URISyntaxException 
+	 * @throws URISyntaxException 异常
 	 */
 	public List<LiveInfoResponse> getLivingList(LiveInfoRequest request) throws URISyntaxException {
 		List<LiveInfoResponse> responseList = null;

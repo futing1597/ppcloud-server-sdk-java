@@ -90,7 +90,7 @@ public class LiveStartManager {
 						lWatchMediaResponse.getChannels()[0].getPath(),
 						lWatchMediaResponse.getChannels()[0].getName());
 			}
-			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
+			if (LiveProtocol.RTMP.toString().equalsIgnoreCase(lWatchMediaResponse.getProtocol())) {
 				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
 			}
 		}

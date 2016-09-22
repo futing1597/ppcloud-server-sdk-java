@@ -23,9 +23,19 @@ public class LivePreviewInfoModel {
 	private String rtmpUrl;
 	
 	/**
+	 * HDL 播放地址
+	 */
+	private String hdlUrl;
+	
+	/**
 	 * m3u8 播放地址
 	 */
 	private String m3u8Url;
+	
+	/**
+	 * 多码流 播放地址
+	 */
+	private String[] rtmpsUrl;
 	
 	/**
 	 * 错误代码
@@ -55,12 +65,28 @@ public class LivePreviewInfoModel {
 		this.rtmpUrl = rtmpUrl;
 	}
 
+	public String getHdlUrl() {
+		return hdlUrl;
+	}
+
+	public void setHdlUrl(String hdlUrl) {
+		this.hdlUrl = hdlUrl;
+	}
+
 	public String getM3u8Url() {
 		return m3u8Url;
 	}
 
 	public void setM3u8Url(String m3u8Url) {
 		this.m3u8Url = m3u8Url;
+	}
+
+	public String[] getRtmpsUrl() {
+		return rtmpsUrl;
+	}
+
+	public void setRtmpsUrl(String[] rtmpsUrl) {
+		this.rtmpsUrl = rtmpsUrl;
 	}
 
 	public String getErr() {
