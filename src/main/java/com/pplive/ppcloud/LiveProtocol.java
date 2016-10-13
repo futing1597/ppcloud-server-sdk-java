@@ -1,3 +1,7 @@
+/**
+ * PPLive Inc.
+ * Copyright (c) 2007-2016 All Rights Reserved.
+ */
 package com.pplive.ppcloud;
 
 public enum LiveProtocol {

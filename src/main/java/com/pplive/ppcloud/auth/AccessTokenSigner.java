@@ -5,19 +5,18 @@
 
 package com.pplive.ppcloud.auth;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.UUID;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
 import com.pplive.ppcloud.AuthConstants;
 import com.pplive.ppcloud.CharsetConstants;
 import com.pplive.ppcloud.utils.HmacSHA1Util;
 import com.pplive.ppcloud.utils.JsonUtils;
 import com.pplive.ppcloud.utils.LogUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.UUID;
 
 
 /**
@@ -25,8 +24,7 @@ import com.pplive.ppcloud.utils.LogUtils;
  *
  */
 public class AccessTokenSigner {
-	
-	private AccessTokenSigner() {}
+
 	
 	/**
 	 * 获取单例对象
@@ -44,7 +42,17 @@ public class AccessTokenSigner {
 	private static String ACCESSTOKEN;
 	
 	private static Long DEAD_LINE;
-	
+
+	/**
+	 * 默认使用常量里配置的accessKey、accessKey
+	 * 实例化该类后也可以调用 {@link #setAuthCredentials} 重设accessKey、accessKey
+	 */
+	private AccessTokenSigner() {
+		authCredentials = new AuthCredentials();
+		authCredentials.setAccessKey(AuthConstants.AUTH_AK);
+		authCredentials.setSecretKey(AuthConstants.AUTH_SK);
+	}
+
 	public String sign() {
 		return this.sign(this.authCredentials);
 	}
@@ -100,10 +108,7 @@ public class AccessTokenSigner {
 				&& (System.currentTimeMillis()/1000+300)<DEAD_LINE) {
 			return ACCESSTOKEN;
 		}
-		
-		AuthCredentials authCredentials = new AuthCredentials();
-		authCredentials.setAccessKey(AuthConstants.AUTH_AK);
-		authCredentials.setSecretKey(AuthConstants.AUTH_SK);
+
 		ACCESSTOKEN = AccessTokenSigner.getInstance().sign(authCredentials);
 		return ACCESSTOKEN;
 	}

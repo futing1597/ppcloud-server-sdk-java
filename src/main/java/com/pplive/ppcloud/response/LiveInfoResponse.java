@@ -133,7 +133,7 @@ public class LiveInfoResponse extends BaseResponse {
 	 * 直转点状态(dealing:正在处理中;fail:直转点失败;success:直转点成功)
 	 */
 	@JsonProperty("live_vod_status")
-	private Integer liveVodStatus;
+	private String liveVodStatus;
 
 	public Long getId() {
 		return id;
@@ -295,11 +295,11 @@ public class LiveInfoResponse extends BaseResponse {
 		this.timeLimit = timeLimit;
 	}
 
-	public Integer getLiveVodStatus() {
+	public String getLiveVodStatus() {
 		return liveVodStatus;
 	}
 
-	public void setLiveVodStatus(Integer liveVodStatus) {
+	public void setLiveVodStatus(String liveVodStatus) {
 		this.liveVodStatus = liveVodStatus;
 	}
 }

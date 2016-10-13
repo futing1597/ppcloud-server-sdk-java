@@ -69,17 +69,14 @@ public class LiveManager {
 	 * 创建直播
 	 * @param request LiveCreateRequest 实体对象
 	 * @return LiveCreateResponse 实体对象
-	 * @throws URISyntaxException 异常
 	 */
-	public LiveCreateResponse create(LiveCreateRequest request) throws URISyntaxException{
+	public LiveCreateResponse create(LiveCreateRequest request) {
 		LogUtils.log(String.format("create request: %s", JsonUtils.toJsonString(request)));
 		
 		LiveCreateResponse response = null;
 		setHeader();
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(
-				new URI(HostConstants.HOST_URL+HostConstants.CREATE_LIVE_URL), 
-				headerMap, 
-				request);
+		URI uri = getUri(HostConstants.HOST_URL+HostConstants.CREATE_LIVE_URL);
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request);
 		LogUtils.log(String.format("create response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LiveCreateData liveCreateData = JsonUtils.fromJsonString(jsonRes, LiveCreateData.class);
@@ -100,17 +97,14 @@ public class LiveManager {
 	 * 延迟直播时长可以使用该接口
 	 * @param request liveUpdateRequest 实体对象
 	 * @return BaseResponse 实体对象
-	 * @throws URISyntaxException 异常
 	 */
-	public BaseResponse update(LiveUpdateRequest request) throws URISyntaxException {
+	public BaseResponse update(LiveUpdateRequest request) {
 		LogUtils.log(String.format("update request: %s", JsonUtils.toJsonString(request)));
 		
 		BaseResponse response = null;
 		setHeader();
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(
-				new URI(String.format(HostConstants.HOST_URL+HostConstants.UPDATE_LIVE_URL, request.getChannelWebId())), 
-				headerMap, 
-				request);
+		URI uri = getUri(String.format(HostConstants.HOST_URL+HostConstants.UPDATE_LIVE_URL, request.getChannelWebId()));
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request);
 		LogUtils.log(String.format("update response: %s", jsonRes));
 		response = JsonUtils.fromJsonString(jsonRes, BaseResponse.class);
 		return response;
@@ -121,9 +115,8 @@ public class LiveManager {
 	 * 需要定时获取以判断当前状态是否正常
 	 * @param request LiveStatusRequest 实体对象
 	 * @return LiveStatusResponse 实体对象
-	 * @throws URISyntaxException 异常
 	 */
-	public LiveStatusResponse status(LiveStatusRequest request) throws URISyntaxException {
+	public LiveStatusResponse status(LiveStatusRequest request) {
 		LogUtils.log(String.format("status request: %s", JsonUtils.toJsonString(request)));
 		
 		LiveStatusResponse response = null;
@@ -150,17 +143,14 @@ public class LiveManager {
 	 * 直播状态控制
 	 * @param request LiveStatusControlRequest 实体对象
 	 * @return BaseResponse 实体对象
-	 * @throws URISyntaxException 异常
 	 */
-	public BaseResponse statusControll(LiveStatusControlRequest request) throws URISyntaxException {
+	public BaseResponse statusControll(LiveStatusControlRequest request) {
 		LogUtils.log(String.format("statusControll request: %s", JsonUtils.toJsonString(request)));
 		
 		BaseResponse response = null;
 		setHeader();
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(
-				new URI(String.format(HostConstants.HOST_URL+HostConstants.CONTROL_LIVE_STATUS_URL, request.getChannelWebId())), 
-				headerMap, 
-				request);
+		URI uri = getUri(String.format(HostConstants.HOST_URL+HostConstants.CONTROL_LIVE_STATUS_URL, request.getChannelWebId()));
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request);
 		LogUtils.log(String.format("statusControll response: %s", jsonRes));
 		response = JsonUtils.fromJsonString(jsonRes, BaseResponse.class);
 		return response;
@@ -207,10 +197,8 @@ public class LiveManager {
 		LiveWatchResponse response = null;
 		setHeader();
 		headerMap.put("x-forwarded-for", request.getClientIp());
-		String cWebId = StringUtils.isNotEmpty(request.getChannelWebId())?request.getChannelWebId():"nn";
-		String nn = StringUtils.isNotEmpty(request.getChannelWebId())?"":"?nn="+request.getNickName();
 		String jsonRes = HttpClientManager.getInstance().execGetRequestWithHeader(
-				String.format(HostConstants.HOST_URL+HostConstants.WATCH_LIVE_URL+nn, cWebId), 
+				String.format(HostConstants.HOST_URL+HostConstants.WATCH_LIVE_URL, request.getChannelWebId()),
 				headerMap);
 		LogUtils.log(String.format("watch response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
@@ -287,26 +275,29 @@ public class LiveManager {
 	 * 获取直播列表
 	 * @param request LiveInfoRequest 实体对象
 	 * @return LiveInfoResponse 实体对象列表
-	 * @throws URISyntaxException 异常
 	 */
-	public List<LiveInfoResponse> getLivingList(LiveInfoRequest request) throws URISyntaxException {
-		List<LiveInfoResponse> responseList = null;
+	public LiveInfoListData getLiveList(LiveInfoRequest request) {
+		LiveInfoListData liveInfoListData = null;
 		setHeader();
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(new URI(HostConstants.HOST_URL+HostConstants.GET_LIVE_LIST_URL), 
-				headerMap,request);
-		LogUtils.log(String.format("getLivingList response: %s", jsonRes));
+		URI uri = getUri(HostConstants.HOST_URL+HostConstants.GET_LIVE_LIST_URL);
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap,request);
+		LogUtils.log(String.format("getLiveList response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
-			LiveInfoListData liveInfoListData = JsonUtils.fromJsonString(jsonRes, LiveInfoListData.class);
-			if ("0".equals(liveInfoListData.getErr())) {
-				responseList = Arrays.asList(liveInfoListData.getData());
-			} else {
-				responseList = new ArrayList<LiveInfoResponse>();
-			}
+			liveInfoListData = JsonUtils.fromJsonString(jsonRes, LiveInfoListData.class);
 		}
-		return responseList;
+		return liveInfoListData;
 	}
 	
 	private void setHeader() {
 		headerMap.put("Authorization", AccessTokenSigner.getInstance().getAccessToken());
+	}
+
+	private URI getUri(String url) {
+		try {
+			return new URI(url);
+		} catch (URISyntaxException e) {
+			// 不向外抛出该异常增加外部处理的麻烦，url地址都由内部组装可保证格式正确性
+			return null;
+		}
 	}
 }

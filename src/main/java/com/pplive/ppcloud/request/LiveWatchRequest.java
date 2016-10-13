@@ -21,12 +21,6 @@ public class LiveWatchRequest {
 	private String channelWebId;
 	
 	/**
-	 * 直播别名
-	 */
-	@JsonProperty("nickname")
-	private String nickName;
-	
-	/**
 	 * 客户端Ip
 	 */
 	@JsonIgnore
@@ -38,14 +32,6 @@ public class LiveWatchRequest {
 
 	public void setChannelWebId(String channelWebId) {
 		this.channelWebId = channelWebId;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	public String getClientIp() {

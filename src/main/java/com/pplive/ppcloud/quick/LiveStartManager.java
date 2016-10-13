@@ -37,9 +37,8 @@ public class LiveStartManager {
 	 * 包含 预览,直播中,获取预览地址
 	 * @param channelWebId 直播播放串
 	 * @return 预览地址
-	 * @throws URISyntaxException 异常
 	 */
-	public LivePreviewInfoModel start(String channelWebId, String clientIp) throws URISyntaxException {
+	public LivePreviewInfoModel start(String channelWebId, String clientIp) {
 		LivePreviewInfoModel lPreviewInfoModel = new LivePreviewInfoModel();
 		//1.preview
 		LiveStatusControlRequest lStatusControlRequest = new LiveStatusControlRequest();

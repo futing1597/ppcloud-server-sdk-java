@@ -25,8 +25,15 @@ public class LiveStatusManager {
 	private static class SingletonHolder {
 		private static LiveStatusManager instance = new LiveStatusManager();
 	}
-	
-	public LiveStatusInfoModel status(String channelWebId, String clientIp) throws URISyntaxException {
+
+	/**
+	 * 获取直播状态
+	 * 需要定时获取以判断当前状态是否正常
+	 * @param channelWebId 直播播放串
+	 * @param clientIp 客户端Ip
+	 * @return 直播状态
+	 */
+	public LiveStatusInfoModel status(String channelWebId, String clientIp) {
 		LiveStatusInfoModel lStatusInfoModel = new LiveStatusInfoModel();
 		//live status
 		LiveStatusRequest lStatusRequest = new LiveStatusRequest();

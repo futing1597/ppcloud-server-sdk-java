@@ -37,7 +37,6 @@ public class JsonUtils {
         objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
-        objectMapper.setSerializationInclusion(Include.NON_NULL);
     }
 
     private static final ObjectWriter writer = objectMapper.writer();

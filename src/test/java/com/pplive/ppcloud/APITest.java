@@ -5,26 +5,14 @@
 
 package com.pplive.ppcloud;
 
-import java.net.URISyntaxException;
-
 import com.pplive.ppcloud.live.LiveManager;
-import com.pplive.ppcloud.request.LiveCreateRequest;
-import com.pplive.ppcloud.request.LiveInfoRequest;
-import com.pplive.ppcloud.request.LivePublishUrlRequest;
-import com.pplive.ppcloud.request.LiveStatusControlRequest;
-import com.pplive.ppcloud.request.LiveStatusRequest;
-import com.pplive.ppcloud.request.LiveUpdateRequest;
-import com.pplive.ppcloud.request.LiveWatchRequest;
-import com.pplive.ppcloud.response.BaseResponse;
-import com.pplive.ppcloud.response.LiveCreateResponse;
-import com.pplive.ppcloud.response.LiveInfoResponse;
-import com.pplive.ppcloud.response.LivePublishUrlResponse;
-import com.pplive.ppcloud.response.LiveStatusResponse;
-import com.pplive.ppcloud.response.LiveWatchResponse;
+import com.pplive.ppcloud.request.*;
+import com.pplive.ppcloud.response.*;
 import com.pplive.ppcloud.utils.JsonUtils;
 import com.pplive.ppcloud.utils.LogUtils;
-
 import junit.framework.TestCase;
+
+import java.util.List;
 
 /**
  * @author chaogao
@@ -39,16 +27,11 @@ public class APITest extends TestCase {
 		request.setMode(LiveMode.XSPLIT.toString());
 		request.setStartTime(System.currentTimeMillis());
 		request.setEndTime(System.currentTimeMillis()+7200000);
-		request.setNickName("[SDKTest]nickname_001");
 		
 		LiveCreateResponse response = null;
-    	try {
-    		response = LiveManager.getInstance().create(request);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-    	
-    	LogUtils.log(String.format("LiveCreate: %s", JsonUtils.toJsonString(response)));
+		response = LiveManager.getInstance().create(request);
+
+		LogUtils.log(String.format("LiveCreate: %s", JsonUtils.toJsonString(response)));
     	LogUtils.log(String.format("channel_web_id: %s", response.getChannelWebId()));
     	
     	assertNotNull(response);
@@ -58,15 +41,11 @@ public class APITest extends TestCase {
 	public void testLiveUpdate()
 	{
 		LiveUpdateRequest request = new LiveUpdateRequest();
-		request.setChannelWebId("0a2dnqyaqaSkoKyL4K2hoqrhoaSioKaboA");
+		request.setChannelWebId("0a2dnqyaqaSjoa-L4K0");
 		request.setEndTime(System.currentTimeMillis()+3600000);
 		
 		BaseResponse response = null;
-		try {
-			response = LiveManager.getInstance().update(request);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+		response = LiveManager.getInstance().update(request);
 		LogUtils.log(String.format("LiveUpdate: %s", JsonUtils.toJsonString(response)));
 		
 		assertNotNull(response);
@@ -80,11 +59,7 @@ public class APITest extends TestCase {
 		request.setClientIp("117.135.159.4");
 		
 		LiveStatusResponse response = null;
-		try {
-			response = LiveManager.getInstance().status(request);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+		response = LiveManager.getInstance().status(request);
 		LogUtils.log(String.format("LiveStatus: %s", JsonUtils.toJsonString(response)));
 		
 		assertNotNull(response);
@@ -94,15 +69,11 @@ public class APITest extends TestCase {
 	public void testLiveStatusControll()
 	{
 		LiveStatusControlRequest request = new LiveStatusControlRequest();
-		request.setChannelWebId("0a2dnqyaqaSkoKyL4K2hoqrhoaSioKaboA");
+		request.setChannelWebId("0a2dnqyaqaSkoKqL4K2hoqrhoaSioKaaqA");
 		request.setLiveStatus(LiveStatus.INIT.toString());
 		
 		BaseResponse response = null;
-		try {
-			response = LiveManager.getInstance().statusControll(request);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+		response = LiveManager.getInstance().statusControll(request);
 		LogUtils.log(String.format("LiveStatusControll: %s", JsonUtils.toJsonString(response)));
 		
 		assertNotNull(response);
@@ -112,7 +83,7 @@ public class APITest extends TestCase {
 	public void testLivePublishUrl()
 	{
 		LivePublishUrlRequest request = new LivePublishUrlRequest();
-		request.setChannelWebId("0a2dnqyaqaSkoKyL4K2hoqrhoaSioKaboA");
+		request.setChannelWebId("0a2dnq6aoaSgnKmL4K2dnqfhoaajma6bow");
 		request.setClientIp("117.135.159.4");
 		
 		LivePublishUrlResponse response = LiveManager.getInstance().getPublishUrl(request);
@@ -125,7 +96,7 @@ public class APITest extends TestCase {
 	public void testLivePreview()
 	{
 		LiveWatchRequest request = new LiveWatchRequest();
-		request.setChannelWebId("0a2dnqyaqaSkoKyL4K2hoqrhoaSioKaboA");
+		request.setChannelWebId("0a2dnqyaqaSkoKqL4K2hoqrhoaSioKaaqA");
 		request.setClientIp("117.135.159.4");
 		
 		LiveWatchResponse response = LiveManager.getInstance().preview(request);
@@ -138,8 +109,7 @@ public class APITest extends TestCase {
 	public void testLiveWatch()
 	{
 		LiveWatchRequest request = new LiveWatchRequest();
-		request.setChannelWebId("0a2dnqyaqaSkoKyL4K2hoqrhoaSioKaboA");
-//		request.setNickName("[SDKTest]nickname_001");
+		request.setChannelWebId("0a2dnqyaqaSkoKqL4K2hoqrhoaSioKaaqA");
 		request.setClientIp("117.135.159.4");
 		
 		LiveWatchResponse response = LiveManager.getInstance().watch(request);
@@ -152,12 +122,58 @@ public class APITest extends TestCase {
 	public void testLiveDetail()
 	{
 		LiveInfoRequest request = new LiveInfoRequest();
-		request.setChannelWebId("0a2dnqyaqaSkoKyL4K2hoqrhoaSioKaboA");
+		request.setChannelWebId("0a2dnqyaqaihna-L4K2hoqrhoaSioaabpg");
 		
 		LiveInfoResponse response = LiveManager.getInstance().getDetail(request);
 		LogUtils.log(String.format("LiveDetail: %s", JsonUtils.toJsonString(response)));
 		
 		assertNotNull(response);
     	assertEquals("0", response.getErr());
+	}
+	
+	public void testLivingList()
+	{
+		LiveInfoRequest request = new LiveInfoRequest();
+		request.setChannelType(ChannelType.LIVE.toString());
+		request.setLiveStatus(LiveStatus.LIVING.toString());
+		request.setPageSize(100);
+
+		LiveInfoListData liveInfoListData = LiveManager.getInstance().getLiveList(request);
+		LogUtils.log(String.format("LivingList: %s", JsonUtils.toJsonString(liveInfoListData)));
+		
+		assertNotNull(liveInfoListData);
+		assertEquals("0", liveInfoListData.getErr());
+	}
+
+	public void testLiveStoppedList()
+	{
+		LiveInfoRequest request = new LiveInfoRequest();
+		request.setChannelType(ChannelType.LIVE.toString());
+		request.setLiveStatus(LiveStatus.STOPPED.toString());
+		request.setPageNum(1);
+		request.setPageSize(10);
+		request.setCreateTimeStart(System.currentTimeMillis()-48*3600000);//2天
+
+		LiveInfoListData liveInfoListData = LiveManager.getInstance().getLiveList(request);
+		LogUtils.log(String.format("LivingList: %s", JsonUtils.toJsonString(liveInfoListData)));
+
+		assertNotNull(liveInfoListData);
+		assertEquals("0", liveInfoListData.getErr());
+	}
+
+	public void testLive2VodList()
+	{
+		LiveInfoRequest request = new LiveInfoRequest();
+		request.setChannelType(ChannelType.VOD.toString());
+		request.setLiveStatus(LiveStatus.STOPPED.toString());
+		request.setPageNum(1);
+		request.setPageSize(10);
+		request.setTranscodeStatus(TranscodeStatus.PLAYABLE.toString());
+
+		LiveInfoListData liveInfoListData = LiveManager.getInstance().getLiveList(request);
+		LogUtils.log(String.format("LivingList: %s", JsonUtils.toJsonString(liveInfoListData)));
+
+		assertNotNull(liveInfoListData);
+		assertEquals("0", liveInfoListData.getErr());
 	}
 }

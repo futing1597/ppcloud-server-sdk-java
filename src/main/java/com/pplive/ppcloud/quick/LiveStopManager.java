@@ -30,9 +30,8 @@ public class LiveStopManager {
 	/**
 	 * 停止直播
 	 * @param channelWebId 直播播放串
-	 * @throws URISyntaxException 异常
 	 */
-	public void stop(String channelWebId) throws URISyntaxException {
+	public void stop(String channelWebId) {
 		//stop
 		LiveStatusControlRequest lStatusControlRequest = new LiveStatusControlRequest();
 		lStatusControlRequest.setChannelWebId(channelWebId);

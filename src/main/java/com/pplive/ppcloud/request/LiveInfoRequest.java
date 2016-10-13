@@ -49,6 +49,24 @@ public class LiveInfoRequest {
 	@JsonProperty("page_size")
 	private Integer pageSize;
 
+	/**
+	 * 大于记录时间
+	 */
+	@JsonProperty("create_time_start")
+	private Long createTimeStart;
+
+	/**
+	 * 小于记录时间
+	 */
+	@JsonProperty("create_time_end")
+	private Long createTimeEnd;
+
+	/**
+	 * 转码状态
+	 */
+	@JsonProperty("transcode_status")
+	private String transcodeStatus;
+
 	public String getChannelWebId() {
 		return channelWebId;
 	}
@@ -95,5 +113,29 @@ public class LiveInfoRequest {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Long getCreateTimeStart() {
+		return createTimeStart;
+	}
+
+	public void setCreateTimeStart(Long createTimeStart) {
+		this.createTimeStart = createTimeStart;
+	}
+
+	public Long getCreateTimeEnd() {
+		return createTimeEnd;
+	}
+
+	public void setCreateTimeEnd(Long createTimeEnd) {
+		this.createTimeEnd = createTimeEnd;
+	}
+
+	public String getTranscodeStatus() {
+		return transcodeStatus;
+	}
+
+	public void setTranscodeStatus(String transcodeStatus) {
+		this.transcodeStatus = transcodeStatus;
 	}
 }

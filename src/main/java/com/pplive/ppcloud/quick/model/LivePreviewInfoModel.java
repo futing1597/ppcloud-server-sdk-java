@@ -5,6 +5,7 @@
 package com.pplive.ppcloud.quick.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author chaogao
@@ -15,27 +16,32 @@ public class LivePreviewInfoModel {
 	/**
 	 * 视频webid
 	 */
+	@JsonProperty("channel_web_id")
 	private String channelWebId;
 	
 	/**
 	 * rtmp 播放地址
 	 */
+	@JsonProperty("rtmp_url")
 	private String rtmpUrl;
 	
 	/**
 	 * HDL 播放地址
 	 */
+	@JsonProperty("hdl_url")
 	private String hdlUrl;
 	
 	/**
 	 * m3u8 播放地址
 	 */
+	@JsonProperty("m3u8_url")
 	private String m3u8Url;
 	
 	/**
 	 * 多码流 播放地址
 	 */
-	private String[] rtmpsUrl;
+	@JsonProperty("rtmps_url")
+	private LivePreviewInfoCftModel[] rtmpsUrl;
 	
 	/**
 	 * 错误代码
@@ -81,11 +87,11 @@ public class LivePreviewInfoModel {
 		this.m3u8Url = m3u8Url;
 	}
 
-	public String[] getRtmpsUrl() {
+	public LivePreviewInfoCftModel[] getRtmpsUrl() {
 		return rtmpsUrl;
 	}
 
-	public void setRtmpsUrl(String[] rtmpsUrl) {
+	public void setRtmpsUrl(LivePreviewInfoCftModel[] rtmpsUrl) {
 		this.rtmpsUrl = rtmpsUrl;
 	}
 

@@ -4,8 +4,6 @@
  */
 package com.pplive.ppcloud.quick;
 
-import java.net.URISyntaxException;
-
 import com.pplive.ppcloud.LiveStatus;
 import com.pplive.ppcloud.live.LiveManager;
 import com.pplive.ppcloud.quick.model.LivePushInfoModel;
@@ -37,23 +35,10 @@ public class LiveCreateManager {
 	 * 包含 创建,初始化,获取推流地址
 	 * @param mode 推流方式
 	 * @return 推流地址
-	 * @throws URISyntaxException 异常
 	 */
-	public LivePushInfoModel create(String mode, String clientIp) throws URISyntaxException {
-		return create(mode, "", clientIp);
-	}
-	
-	/**
-	 * 创建一个直播
-	 * 包含 创建,初始化,获取推流地址
-	 * @param mode 推流方式
-	 * @param nickname 流昵称
-	 * @return 推流地址
-	 * @throws URISyntaxException 异常
-	 */
-	public LivePushInfoModel create(String mode, String nickname, String clientIp) throws URISyntaxException {
+	public LivePushInfoModel create(String mode, String clientIp) {
 		String title = "[SDK]"+System.currentTimeMillis();
-		return create(title, mode, nickname, clientIp);
+		return create(title, mode, clientIp);
 	}
 	
 	/**
@@ -61,11 +46,9 @@ public class LiveCreateManager {
 	 * 包含 创建,初始化,获取推流地址
 	 * @param title 直播标题
 	 * @param mode 直播方式
-	 * @param nickname 流昵称
 	 * @return 推流地址
-	 * @throws URISyntaxException 异常
 	 */
-	public LivePushInfoModel create(String title, String mode, String nickname, String clientIp) throws URISyntaxException {
+	public LivePushInfoModel create(String title, String mode, String clientIp) {
 		LivePushInfoModel livePushInfoModel = new LivePushInfoModel();
 		//1.create live
 		LiveCreateRequest liveCreateRequest = new LiveCreateRequest();
@@ -73,7 +56,6 @@ public class LiveCreateManager {
 		liveCreateRequest.setMode(mode);
 		liveCreateRequest.setStartTime(System.currentTimeMillis());
 		liveCreateRequest.setEndTime(System.currentTimeMillis()+4*3600000);//默认4个小时
-		liveCreateRequest.setNickName(nickname);
 		
 		LiveCreateResponse liveCreateResponse = null;
 		liveCreateResponse = LiveManager.getInstance().create(liveCreateRequest);

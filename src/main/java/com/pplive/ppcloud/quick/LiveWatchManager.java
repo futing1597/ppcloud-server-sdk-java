@@ -4,6 +4,7 @@
  */
 package com.pplive.ppcloud.quick;
 
+import com.pplive.ppcloud.quick.model.LivePreviewInfoCftModel;
 import org.apache.commons.lang3.StringUtils;
 
 import com.pplive.ppcloud.HostConstants;
@@ -39,19 +40,6 @@ public class LiveWatchManager {
 	public LivePreviewInfoModel watch(String channelWebId, String clientIp) {
 		LiveWatchRequest lWatchRequest = new LiveWatchRequest();
 		lWatchRequest.setChannelWebId(channelWebId);
-		lWatchRequest.setClientIp(clientIp);
-		return watch(lWatchRequest);
-	}
-	
-	/**
-	 * 获取直播播放地址
-	 * 通过 nickname
-	 * @param nickname 流昵称
-	 * @return 预览地址
-	 */
-	public LivePreviewInfoModel watchForNickname(String nickname, String clientIp) {
-		LiveWatchRequest lWatchRequest = new LiveWatchRequest();
-		lWatchRequest.setNickName(nickname);
 		lWatchRequest.setClientIp(clientIp);
 		return watch(lWatchRequest);
 	}
@@ -94,16 +82,20 @@ public class LiveWatchManager {
 				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
 				
 				if (lWatchMediaResponse.getChannels()[0].getCft() != null) {
-					String[] rtmpsUrl = new String[lWatchMediaResponse.getChannels()[0].getCft().getItem().length];
+					LivePreviewInfoCftModel[] rtmpsUrl = new LivePreviewInfoCftModel[lWatchMediaResponse.getChannels()[0].getCft().getItem().length];
 					int rtmpIndex = 0;
 					for(LiveWatchMediaChannelCftItemResponse itemResponse:lWatchMediaResponse.getChannels()[0].getCft().getItem()) {
-						rtmpsUrl[rtmpIndex++] = String.format("%s://%s%s/%s?ppyunid=%s&cpn=%s", 
+						rtmpsUrl[rtmpIndex] = new LivePreviewInfoCftModel();
+						rtmpsUrl[rtmpIndex].setFt(itemResponse.getFt());
+						rtmpsUrl[rtmpIndex].setName(itemResponse.getName());
+						rtmpsUrl[rtmpIndex].setftCn(itemResponse.getFt_cn());
+						rtmpsUrl[rtmpIndex++].setRtmpUrl(String.format("%s://%s%s/%s?ppyunid=%s&cpn=%s",
 								protoStr,
 								lWatchMediaResponse.getChannels()[0].getAddr()[0],
 								lWatchMediaResponse.getChannels()[0].getPath(),
 								itemResponse.getName(),
 								lWatchResponse.getPpyunid(),
-								lWatchResponse.getCpn());
+								lWatchResponse.getCpn()));
 					}
 					lPreviewInfoModel.setRtmpsUrl(rtmpsUrl);
 				}
@@ -113,6 +105,7 @@ public class LiveWatchManager {
 			}
 			if (StringUtils.isNotEmpty(lWatchRequest.getChannelWebId())) {
 				lPreviewInfoModel.setM3u8Url(String.format(HostConstants.M3U8_PLAY_URL, lWatchRequest.getChannelWebId()));
+				lPreviewInfoModel.setChannelWebId(lWatchRequest.getChannelWebId());
 			}
 			
 		}

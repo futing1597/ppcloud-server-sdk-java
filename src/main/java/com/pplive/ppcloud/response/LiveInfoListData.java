@@ -14,11 +14,24 @@ public class LiveInfoListData extends BaseResponse {
 	 */
 	private LiveInfoResponse[] data;
 
+	/**
+	 * 记录总数
+	 */
+	public Integer totalnum;
+
 	public LiveInfoResponse[] getData() {
 		return data;
 	}
 
 	public void setData(LiveInfoResponse[] data) {
 		this.data = data;
+	}
+
+	public Integer getTotalnum() {
+		return totalnum;
+	}
+
+	public void setTotalnum(Integer totalnum) {
+		this.totalnum = totalnum;
 	}
 }

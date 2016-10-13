@@ -51,12 +51,6 @@ public class LiveCreateRequest {
 	 */
 	@JsonProperty("end_time")
 	private Long endTime;
-	
-	/**
-	 * 直播别名
-	 */
-	@JsonProperty("nickname")
-	private String nickName;
 
 	public String getTitle() {
 		return title;
@@ -113,12 +107,5 @@ public class LiveCreateRequest {
 	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
 	}
-	
-	public String getNickName() {
-		return nickName;
-	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
 }
