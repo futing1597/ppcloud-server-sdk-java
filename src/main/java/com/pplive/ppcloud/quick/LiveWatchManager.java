@@ -101,7 +101,7 @@ public class LiveWatchManager {
 				}
 				
 			} else if (LiveProtocol.HDL.toString().equalsIgnoreCase(mProtocol)) {
-				lPreviewInfoModel.setHdlUrl(String.format("%s.flv?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
+				lPreviewInfoModel.setHdlUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
 			}
 			if (StringUtils.isNotEmpty(lWatchRequest.getChannelWebId())) {
 				lPreviewInfoModel.setM3u8Url(String.format(HostConstants.M3U8_PLAY_URL, lWatchRequest.getChannelWebId()));

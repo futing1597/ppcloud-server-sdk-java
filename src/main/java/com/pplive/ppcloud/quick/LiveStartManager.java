@@ -92,6 +92,7 @@ public class LiveStartManager {
 			if (LiveProtocol.RTMP.toString().equalsIgnoreCase(lWatchMediaResponse.getProtocol())) {
 				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
 			}
+			lPreviewInfoModel.setChannelWebId(channelWebId);
 		}
 		
 		return lPreviewInfoModel;

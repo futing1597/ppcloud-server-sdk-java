@@ -5,6 +5,7 @@
 package com.pplive.ppcloud.quick.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author chaogao
@@ -15,16 +16,19 @@ public class LiveStatusInfoModel {
 	/**
 	 * 视频webid
 	 */
+	@JsonProperty("channel_web_id")
 	private String channelWebId;
 	
 	/**
 	 * 直播状态(参考直播状态表)
 	 */
+	@JsonProperty("live_status")
 	private String liveStatus;
 	
 	/**
 	 * 直播流状态
 	 */
+	@JsonProperty("stream_status")
 	private String streamStatus;
 	
 	/**
