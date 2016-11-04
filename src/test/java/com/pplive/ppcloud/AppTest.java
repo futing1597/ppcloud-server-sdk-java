@@ -16,7 +16,7 @@ public class AppTest
 	 */
 	public void testCreate()
     {
-		LivePushInfoModel lPushInfoModel = LiveCreateManager.getInstance().create(LiveMode.XSPLIT.toString(), "117.135.159.4");
+		LivePushInfoModel lPushInfoModel = LiveCreateManager.getInstance().create(LiveMode.CAMERA.toString(), "117.135.159.4");
 		LogUtils.log(String.format("create: %s", JsonUtils.toJsonString(lPushInfoModel)));
 	}
 
@@ -26,7 +26,7 @@ public class AppTest
 	 */
 	public void testStart()
     {
-		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnqyaqaijmqmL4K2hoqrhoaSioaeXqA", "117.135.159.4");
+		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnqyboKChoquL4K2hoqrhoaSioaucqQ", "117.135.159.4");
 		LogUtils.log(String.format("start: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
 	}
 
@@ -36,7 +36,7 @@ public class AppTest
 	 */
 	public void testWatch()
     {
-    	LivePreviewInfoModel lPreviewInfoModel = LiveWatchManager.getInstance().watch("0a2dnqyaqaijmqmL4K2hoqrhoaSioaeXqA", "117.135.159.4");
+    	LivePreviewInfoModel lPreviewInfoModel = LiveWatchManager.getInstance().watch("0a2dnqyboKChoquL4K2hoqrhoaSioaucqQ", "117.135.159.4");
 		LogUtils.log(String.format("watch: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
     }
 

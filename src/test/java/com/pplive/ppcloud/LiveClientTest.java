@@ -33,7 +33,7 @@ public class LiveClientTest extends TestCase {
 
 
         // 1. 创建直播
-        LivePushInfoModel pushInfo = client.create(title, LiveMode.XSPLIT.toString(), clientIP);
+        LivePushInfoModel pushInfo = client.create(title, LiveMode.CAMERA.toString(), clientIP);
         LogUtils.log("create result=====================\n" + JsonUtils.toJsonString(pushInfo));
 
         // 2. 推流

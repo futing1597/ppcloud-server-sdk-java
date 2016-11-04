@@ -24,7 +24,7 @@ public class APITest extends TestCase {
     {
 		LiveCreateRequest request = new LiveCreateRequest();
 		request.setTitle("[SDKTest]test001");
-		request.setMode(LiveMode.XSPLIT.toString());
+		request.setMode(LiveMode.CAMERA.toString());
 		request.setStartTime(System.currentTimeMillis());
 		request.setEndTime(System.currentTimeMillis()+7200000);
 		
