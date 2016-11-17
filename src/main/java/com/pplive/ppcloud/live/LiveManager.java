@@ -5,41 +5,22 @@
 
 package com.pplive.ppcloud.live;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.pplive.ppcloud.HostConstants;
 import com.pplive.ppcloud.VersionConstants;
 import com.pplive.ppcloud.auth.AccessTokenSigner;
 import com.pplive.ppcloud.http.HttpClientManager;
-import com.pplive.ppcloud.request.LiveCreateRequest;
-import com.pplive.ppcloud.request.LiveInfoRequest;
-import com.pplive.ppcloud.request.LivePublishUrlRequest;
-import com.pplive.ppcloud.request.LiveStatusControlRequest;
-import com.pplive.ppcloud.request.LiveStatusRequest;
-import com.pplive.ppcloud.request.LiveUpdateRequest;
-import com.pplive.ppcloud.request.LiveWatchRequest;
-import com.pplive.ppcloud.response.BaseResponse;
-import com.pplive.ppcloud.response.LiveCreateData;
-import com.pplive.ppcloud.response.LiveCreateResponse;
-import com.pplive.ppcloud.response.LiveInfoData;
-import com.pplive.ppcloud.response.LiveInfoListData;
-import com.pplive.ppcloud.response.LiveInfoResponse;
-import com.pplive.ppcloud.response.LivePublishUrlData;
-import com.pplive.ppcloud.response.LivePublishUrlResponse;
-import com.pplive.ppcloud.response.LiveStatusData;
-import com.pplive.ppcloud.response.LiveStatusResponse;
-import com.pplive.ppcloud.response.LiveWatchData;
-import com.pplive.ppcloud.response.LiveWatchResponse;
+import com.pplive.ppcloud.http.HttpProxyConfig;
+import com.pplive.ppcloud.quick.model.LivePreviewInfoModel;
+import com.pplive.ppcloud.request.*;
+import com.pplive.ppcloud.response.*;
 import com.pplive.ppcloud.utils.JsonUtils;
 import com.pplive.ppcloud.utils.LogUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author chaogao
@@ -58,6 +39,7 @@ public class LiveManager {
 	}
 	
 	private static Map<String, String> headerMap = null;
+	private HttpProxyConfig proxyConfig = null;
 	
 	static
 	{
@@ -76,7 +58,7 @@ public class LiveManager {
 		LiveCreateResponse response = null;
 		setHeader();
 		URI uri = getUri(HostConstants.HOST_URL+HostConstants.CREATE_LIVE_URL);
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request);
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request, proxyConfig);
 		LogUtils.log(String.format("create response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LiveCreateData liveCreateData = JsonUtils.fromJsonString(jsonRes, LiveCreateData.class);
@@ -104,7 +86,7 @@ public class LiveManager {
 		BaseResponse response = null;
 		setHeader();
 		URI uri = getUri(String.format(HostConstants.HOST_URL+HostConstants.UPDATE_LIVE_URL, request.getChannelWebId()));
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request);
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request, proxyConfig);
 		LogUtils.log(String.format("update response: %s", jsonRes));
 		response = JsonUtils.fromJsonString(jsonRes, BaseResponse.class);
 		return response;
@@ -124,7 +106,7 @@ public class LiveManager {
 		headerMap.put("x-forwarded-for", request.getClientIp());
 		String jsonRes = HttpClientManager.getInstance().execGetRequestWithHeader(
 				String.format(HostConstants.HOST_URL+HostConstants.GET_LIVE_STATUS_URL, request.getChannelWebId())
-				, headerMap);
+				, headerMap, proxyConfig);
 		LogUtils.log(String.format("status response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LiveStatusData liveStatusData = JsonUtils.fromJsonString(jsonRes, LiveStatusData.class);
@@ -150,7 +132,7 @@ public class LiveManager {
 		BaseResponse response = null;
 		setHeader();
 		URI uri = getUri(String.format(HostConstants.HOST_URL+HostConstants.CONTROL_LIVE_STATUS_URL, request.getChannelWebId()));
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request);
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request, proxyConfig);
 		LogUtils.log(String.format("statusControll response: %s", jsonRes));
 		response = JsonUtils.fromJsonString(jsonRes, BaseResponse.class);
 		return response;
@@ -169,7 +151,7 @@ public class LiveManager {
 		headerMap.put("x-forwarded-for", request.getClientIp());
 		String jsonRes = HttpClientManager.getInstance().execGetRequestWithHeader(
 				String.format(HostConstants.HOST_URL+HostConstants.GET_LIVE_PUBLISH_URL, request.getChannelWebId()), 
-				headerMap);
+				headerMap, proxyConfig);
 		LogUtils.log(String.format("getPublishUrl response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LivePublishUrlData livePublishUrlData = JsonUtils.fromJsonString(jsonRes, LivePublishUrlData.class);
@@ -199,7 +181,7 @@ public class LiveManager {
 		headerMap.put("x-forwarded-for", request.getClientIp());
 		String jsonRes = HttpClientManager.getInstance().execGetRequestWithHeader(
 				String.format(HostConstants.HOST_URL+HostConstants.WATCH_LIVE_URL, request.getChannelWebId()),
-				headerMap);
+				headerMap, proxyConfig);
 		LogUtils.log(String.format("watch response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LiveWatchData liveWatchData = JsonUtils.fromJsonString(jsonRes, LiveWatchData.class);
@@ -229,7 +211,7 @@ public class LiveManager {
 		headerMap.put("x-forwarded-for", request.getClientIp());
 		String jsonRes = HttpClientManager.getInstance().execGetRequestWithHeader(
 				String.format(HostConstants.HOST_URL+HostConstants.PREVIEW_LIVE_URL, request.getChannelWebId()), 
-				headerMap);
+				headerMap, proxyConfig);
 		LogUtils.log(String.format("preview response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LiveWatchData liveWatchData = JsonUtils.fromJsonString(jsonRes, LiveWatchData.class);
@@ -251,12 +233,12 @@ public class LiveManager {
 	 */
 	public LiveInfoResponse getDetail(LiveInfoRequest request) {
 		LogUtils.log(String.format("getDetail request: %s", JsonUtils.toJsonString(request)));
-		
+
 		LiveInfoResponse response = null;
 		setHeader();
 		String jsonRes = HttpClientManager.getInstance().execGetRequestWithHeader(
 				String.format(HostConstants.HOST_URL+HostConstants.GET_SINGLE_LIVE_URL, request.getChannelWebId()), 
-				headerMap);
+				headerMap, proxyConfig);
 		LogUtils.log(String.format("getDetail response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LiveInfoData liveInfoData = JsonUtils.fromJsonString(jsonRes, LiveInfoData.class);
@@ -280,7 +262,7 @@ public class LiveManager {
 		LiveInfoListData liveInfoListData = null;
 		setHeader();
 		URI uri = getUri(HostConstants.HOST_URL+HostConstants.GET_LIVE_LIST_URL);
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap,request);
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap,request, proxyConfig);
 		LogUtils.log(String.format("getLiveList response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			liveInfoListData = JsonUtils.fromJsonString(jsonRes, LiveInfoListData.class);
@@ -290,6 +272,14 @@ public class LiveManager {
 	
 	private void setHeader() {
 		headerMap.put("Authorization", AccessTokenSigner.getInstance().getAccessToken());
+	}
+
+	public HttpProxyConfig getProxyConfig() {
+		return proxyConfig;
+	}
+
+	public void setProxyConfig(HttpProxyConfig proxyConfig) {
+		this.proxyConfig = proxyConfig;
 	}
 
 	private URI getUri(String url) {

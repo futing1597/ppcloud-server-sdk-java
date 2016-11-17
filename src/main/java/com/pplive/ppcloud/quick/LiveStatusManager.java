@@ -4,8 +4,6 @@
  */
 package com.pplive.ppcloud.quick;
 
-import java.net.URISyntaxException;
-
 import com.pplive.ppcloud.live.LiveManager;
 import com.pplive.ppcloud.quick.model.LiveStatusInfoModel;
 import com.pplive.ppcloud.request.LiveStatusRequest;
