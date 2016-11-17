@@ -40,7 +40,7 @@ public class LiveClientTest extends TestCase {
         // 如使用OBS推流，分别配置URL和串码流为：pushInfo.getPushUrl()和pushInfo.getToken()
 
         // 3. 开始直播, 返回预览地址
-        LivePreviewInfoModel previewInfo = client.start(pushInfo.getChannelWebId(), clientIP);
+        LivePreviewInfoModel previewInfo = client.start(pushInfo.getChannelWebId());
         LogUtils.log("start result=====================\n" + JsonUtils.toJsonString(previewInfo));
 
         // 4. 观看地址，返回观看地址

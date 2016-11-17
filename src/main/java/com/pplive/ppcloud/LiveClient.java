@@ -53,8 +53,8 @@ public class LiveClient {
      * @param channelWebId 直播播放串
      * @return 预览地址
      */
-    public LivePreviewInfoModel start(String channelWebId, String clientIp) {
-        return LiveStartManager.getInstance().start(channelWebId, clientIp);
+    public LivePreviewInfoModel start(String channelWebId) {
+        return LiveStartManager.getInstance().start(channelWebId);
     }
 
 

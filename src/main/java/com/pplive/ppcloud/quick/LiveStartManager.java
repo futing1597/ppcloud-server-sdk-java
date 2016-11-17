@@ -4,15 +4,11 @@
  */
 package com.pplive.ppcloud.quick;
 
-import com.pplive.ppcloud.LiveProtocol;
 import com.pplive.ppcloud.LiveStatus;
 import com.pplive.ppcloud.live.LiveManager;
 import com.pplive.ppcloud.quick.model.LivePreviewInfoModel;
 import com.pplive.ppcloud.request.LiveStatusControlRequest;
-import com.pplive.ppcloud.request.LiveWatchRequest;
 import com.pplive.ppcloud.response.BaseResponse;
-import com.pplive.ppcloud.response.LiveWatchMediaResponse;
-import com.pplive.ppcloud.response.LiveWatchResponse;
 
 /**
  * @author chaogao
