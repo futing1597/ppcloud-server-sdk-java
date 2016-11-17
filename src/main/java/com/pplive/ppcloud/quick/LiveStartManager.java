@@ -33,10 +33,9 @@ public class LiveStartManager {
 	/**
 	 * 开始直播
 	 * 包含 预览,直播中,获取预览地址
-	 * @param channelWebId 直播播放串
 	 * @return 预览地址
 	 */
-	public LivePreviewInfoModel start(String channelWebId, String clientIp) {
+	public LivePreviewInfoModel start(String channelWebId) {
 		LivePreviewInfoModel lPreviewInfoModel = new LivePreviewInfoModel();
 		//1.preview
 		LiveStatusControlRequest lStatusControlRequest = new LiveStatusControlRequest();
@@ -61,36 +60,6 @@ public class LiveStartManager {
 			lPreviewInfoModel.setErr(lsResponse2.getErr());
 			lPreviewInfoModel.setMsg(lsResponse2.getMsg());
 			return lPreviewInfoModel;
-		}
-		//3.preview url
-		LiveWatchRequest lWatchRequest = new LiveWatchRequest();
-		lWatchRequest.setChannelWebId(channelWebId);
-		lWatchRequest.setClientIp(clientIp);
-		
-		LiveWatchResponse lWatchResponse = LiveManager.getInstance().preview(lWatchRequest);
-		if (null == lWatchResponse || !"0".equals(lWatchResponse.getErr())) {
-			lPreviewInfoModel.setErr(lWatchResponse.getErr());
-			lPreviewInfoModel.setMsg(lWatchResponse.getMsg());
-			return lPreviewInfoModel;
-		}
-		
-		for(LiveWatchMediaResponse lWatchMediaResponse:lWatchResponse.getMedias()){
-			String pString = "";
-			String protoStr = "";
-			if (lWatchMediaResponse.getProtocol().equalsIgnoreCase(LiveProtocol.RTMP.toString())) {
-				protoStr = "rtmp";
-			}
-			if (lWatchMediaResponse.getChannels().length > 0) {
-				pString = String.format("%s://%s%s/%s", 
-						protoStr,
-						lWatchMediaResponse.getChannels()[0].getAddr()[0],
-						lWatchMediaResponse.getChannels()[0].getPath(),
-						lWatchMediaResponse.getChannels()[0].getName());
-			}
-			if (LiveProtocol.RTMP.toString().equalsIgnoreCase(lWatchMediaResponse.getProtocol())) {
-				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
-			}
-			lPreviewInfoModel.setChannelWebId(channelWebId);
 		}
 		
 		return lPreviewInfoModel;

@@ -22,11 +22,10 @@ public class AppTest
 
 	/**
 	 * 开始直播
-	 * 替换IP 117.135.159.4 为本机出口IP
 	 */
 	public void testStart()
     {
-		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnqyboKChoquL4K2hoqrhoaSioaucqQ", "117.135.159.4");
+		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnqyboKChoquL4K2hoqrhoaSioaucqQ");
 		LogUtils.log(String.format("start: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
 	}
 
