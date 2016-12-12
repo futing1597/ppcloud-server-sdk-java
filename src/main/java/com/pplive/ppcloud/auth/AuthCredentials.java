@@ -13,15 +13,21 @@ public class AuthCredentials {
 	
 	/**
 	 * AK
-	 * 由PP云发放
+	 * 由聚力云发放
 	 */
 	private String accessKey;
 	
 	/**
 	 * SK
-	 * 由PP云发放
+	 * 由聚力云发放
 	 */
 	private String secretKey;
+
+	/**
+	 * 生成Token过期时间
+	 * 默认60分钟
+	 */
+	private Integer expireInMinutes = 60;
 	
 	public String getAccessKey() {
 		return accessKey;
@@ -34,5 +40,13 @@ public class AuthCredentials {
 	}
 	public void setSecretKey(String secretKey) {
 		this.secretKey = secretKey;
+	}
+
+	public Integer getExpireInMinutes() {
+		return expireInMinutes;
+	}
+
+	public void setExpireInMinutes(Integer expireInMinutes) {
+		this.expireInMinutes = expireInMinutes;
 	}
 }

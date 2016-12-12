@@ -6,6 +6,8 @@
 package com.pplive.ppcloud;
 
 import com.pplive.ppcloud.live.LiveManager;
+import com.pplive.ppcloud.quick.LivePlayStrManager;
+import com.pplive.ppcloud.quick.model.LivePreviewInfoModel;
 import com.pplive.ppcloud.request.*;
 import com.pplive.ppcloud.response.*;
 import com.pplive.ppcloud.utils.JsonUtils;
@@ -70,7 +72,7 @@ public class APITest extends TestCase {
 	{
 		LiveStatusControlRequest request = new LiveStatusControlRequest();
 		request.setChannelWebId("0a2dnqyaqaSkoKqL4K2hoqrhoaSioKaaqA");
-		request.setLiveStatus(LiveStatus.INIT.toString());
+		request.setLiveStatus(LiveStatus.LIVING.toString());
 		
 		BaseResponse response = null;
 		response = LiveManager.getInstance().statusControll(request);
@@ -93,27 +95,14 @@ public class APITest extends TestCase {
     	assertEquals("0", response.getErr());
 	}
 	
-	public void testLivePreview()
+	public void testGetPlayStr()
 	{
 		LiveWatchRequest request = new LiveWatchRequest();
 		request.setChannelWebId("0a2dnqyaqaSkoKqL4K2hoqrhoaSioKaaqA");
 		request.setClientIp("117.135.159.4");
 		
-		LiveWatchResponse response = LiveManager.getInstance().preview(request);
-		LogUtils.log(String.format("LivePreview: %s", JsonUtils.toJsonString(response)));
-		
-		assertNotNull(response);
-    	assertEquals("0", response.getErr());
-	}
-	
-	public void testLiveWatch()
-	{
-		LiveWatchRequest request = new LiveWatchRequest();
-		request.setChannelWebId("0a2dnqyaqaSkoKqL4K2hoqrhoaSioKaaqA");
-		request.setClientIp("117.135.159.4");
-		
-		LiveWatchResponse response = LiveManager.getInstance().watch(request);
-		LogUtils.log(String.format("LivePreview: %s", JsonUtils.toJsonString(response)));
+		LivePreviewInfoModel response = LivePlayStrManager.getInstance().getPlayStr(request);
+		LogUtils.log(String.format("LivePlayStr: %s", JsonUtils.toJsonString(response)));
 		
 		assertNotNull(response);
     	assertEquals("0", response.getErr());
@@ -122,7 +111,7 @@ public class APITest extends TestCase {
 	public void testLiveDetail()
 	{
 		LiveInfoRequest request = new LiveInfoRequest();
-		request.setChannelWebId("0a2dnqyaqaihna-L4K2hoqrhoaSioaabpg");
+		request.setChannelWebId("0a2dnqyboKOfnK6L4K2hoqrhoaikm6aepA");
 		
 		LiveInfoResponse response = LiveManager.getInstance().getDetail(request);
 		LogUtils.log(String.format("LiveDetail: %s", JsonUtils.toJsonString(response)));
@@ -136,7 +125,7 @@ public class APITest extends TestCase {
 		LiveInfoRequest request = new LiveInfoRequest();
 		request.setChannelType(ChannelType.LIVE.toString());
 		request.setLiveStatus(LiveStatus.LIVING.toString());
-		request.setPageSize(100);
+//		request.setPageSize(100);
 
 		LiveInfoListData liveInfoListData = LiveManager.getInstance().getLiveList(request);
 		LogUtils.log(String.format("LivingList: %s", JsonUtils.toJsonString(liveInfoListData)));
@@ -169,6 +158,7 @@ public class APITest extends TestCase {
 		request.setPageNum(1);
 		request.setPageSize(10);
 		request.setTranscodeStatus(TranscodeStatus.PLAYABLE.toString());
+		request.setAbnormalLive(AbnormalLiveEnum.FILTER.toString());
 
 		LiveInfoListData liveInfoListData = LiveManager.getInstance().getLiveList(request);
 		LogUtils.log(String.format("LivingList: %s", JsonUtils.toJsonString(liveInfoListData)));

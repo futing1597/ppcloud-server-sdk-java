@@ -33,19 +33,8 @@ public class LiveStartManager {
 	 */
 	public LivePreviewInfoModel start(String channelWebId) {
 		LivePreviewInfoModel lPreviewInfoModel = new LivePreviewInfoModel();
-		//1.preview
-		LiveStatusControlRequest lStatusControlRequest = new LiveStatusControlRequest();
-		lStatusControlRequest.setChannelWebId(channelWebId);
-		lStatusControlRequest.setLiveStatus(LiveStatus.PREVIEW.toString());
-		
-		BaseResponse lsResponse = LiveManager.getInstance().statusControll(lStatusControlRequest);
-		
-		if (null == lsResponse || !"0".equals(lsResponse.getErr())) {
-			lPreviewInfoModel.setErr(lsResponse.getErr());
-			lPreviewInfoModel.setMsg(lsResponse.getMsg());
-			return lPreviewInfoModel;
-		}
-		//2.living
+
+		//1.living
 		LiveStatusControlRequest lStatusControlRequest2 = new LiveStatusControlRequest();
 		lStatusControlRequest2.setChannelWebId(channelWebId);
 		lStatusControlRequest2.setLiveStatus(LiveStatus.LIVING.toString());

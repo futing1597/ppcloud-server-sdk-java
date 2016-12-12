@@ -67,6 +67,15 @@ public class LiveInfoRequest {
 	@JsonProperty("transcode_status")
 	private String transcodeStatus;
 
+	/**
+	 * 过滤异常直播和直转点记录
+	 * null: 无操作
+	 * 0: 过滤直播直转点失败和不正常视频
+	 * 1: 返回需要过滤的直播直转点失败和不正常视频
+	 */
+	@JsonProperty("abnormal_live")
+	private String abnormalLive;
+
 	public String getChannelWebId() {
 		return channelWebId;
 	}
@@ -137,5 +146,13 @@ public class LiveInfoRequest {
 
 	public void setTranscodeStatus(String transcodeStatus) {
 		this.transcodeStatus = transcodeStatus;
+	}
+
+	public String getAbnormalLive() {
+		return abnormalLive;
+	}
+
+	public void setAbnormalLive(String abnormalLive) {
+		this.abnormalLive = abnormalLive;
 	}
 }

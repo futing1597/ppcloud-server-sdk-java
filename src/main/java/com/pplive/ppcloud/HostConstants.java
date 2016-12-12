@@ -65,4 +65,9 @@ public class HostConstants {
 	 * 获取视频列表接口
 	 */
 	public static final String GET_LIVE_LIST_URL = "/svc/api3/channel/list";
+
+	/**
+	 * Watch接口
+	 */
+	public static final String PLAY_STR_URL = "/svc/api3/playstr/%s";
 }

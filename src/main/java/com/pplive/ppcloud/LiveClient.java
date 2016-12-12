@@ -59,24 +59,24 @@ public class LiveClient {
 
 
     /**
-     * 获取直播播放地址
+     * 获取播放地址
      * 通过 channelWebId
      *
      * @param channelWebId 直播播放串
      * @return 预览地址
      */
-    public LivePreviewInfoModel watch(String channelWebId, String clientIp) {
-        return LiveWatchManager.getInstance().watch(channelWebId, clientIp);
+    public LivePreviewInfoModel getPlayStr(String channelWebId, String clientIp) {
+        return LivePlayStrManager.getInstance().getPlayStr(channelWebId, clientIp);
     }
 
     /**
-     * 获取直播播放地址
+     * 获取播放地址
      *
      * @param lWatchRequest 请求参数
      * @return 预览地址
      */
-    public LivePreviewInfoModel watch(LiveWatchRequest lWatchRequest) {
-        return LiveWatchManager.getInstance().watch(lWatchRequest);
+    public LivePreviewInfoModel getPlayStr(LiveWatchRequest lWatchRequest) {
+        return LivePlayStrManager.getInstance().getPlayStr(lWatchRequest);
     }
 
     /**

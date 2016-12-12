@@ -269,9 +269,44 @@ public class LiveManager {
 		}
 		return liveInfoListData;
 	}
+
+	/**
+	 * 获取播放地址
+	 * 播放地址包含直点播链接和有效期
+	 * 播放协议：RTMP/HDL/HLS
+	 * rtmps_url 提供多码率选择
+	 * @param request LiveWatchRequest 实体对象
+	 * @return LivePreviewInfoModel 实体对象
+	 */
+	public LivePreviewInfoModel getPlayStr(LiveWatchRequest request) {
+		LogUtils.log(String.format("getPlayStr request: %s", JsonUtils.toJsonString(request)));
+
+		LivePreviewInfoModel response = null;
+		setHeader(request.getExpireInMinutes());
+		headerMap.put("x-forwarded-for", request.getClientIp());
+		String jsonRes = HttpClientManager.getInstance().execGetRequestWithHeader(
+				String.format(HostConstants.HOST_URL+HostConstants.PLAY_STR_URL, request.getChannelWebId()),
+				headerMap, proxyConfig);
+		LogUtils.log(String.format("getPlayStr response: %s", jsonRes));
+		if (StringUtils.isNotEmpty(jsonRes)) {
+			LivePlayStrData livePlayStrData = JsonUtils.fromJsonString(jsonRes, LivePlayStrData.class);
+			if ("0".equals(livePlayStrData.getErr())) {
+				response = livePlayStrData.getData();
+			} else {
+				response = new LivePreviewInfoModel();
+			}
+			response.setErr(livePlayStrData.getErr());
+			response.setMsg(livePlayStrData.getMsg());
+		}
+		return response;
+	}
 	
 	private void setHeader() {
 		headerMap.put("Authorization", AccessTokenSigner.getInstance().getAccessToken());
+	}
+
+	private void setHeader(Integer expireInMinutes) {
+		headerMap.put("Authorization", AccessTokenSigner.getInstance().getAccessToken(expireInMinutes));
 	}
 
 	public HttpProxyConfig getProxyConfig() {

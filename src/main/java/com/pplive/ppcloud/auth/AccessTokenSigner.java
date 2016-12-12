@@ -68,7 +68,7 @@ public class AccessTokenSigner {
 			throw new IllegalArgumentException("empty accessKey or secretKey");
 		}
 		
-		Date expireDate = DateUtils.addMinutes(new Date(), 60);
+		Date expireDate = DateUtils.addMinutes(new Date(), authCredentials.getExpireInMinutes());
 		DEAD_LINE = expireDate.getTime()/1000;
 		AuthorizationRequest authorizationRequest = new AuthorizationRequest();
 		authorizationRequest.setRid(UUID.randomUUID().toString().replace("-", "").toLowerCase());
@@ -110,6 +110,21 @@ public class AccessTokenSigner {
 		}
 
 		ACCESSTOKEN = AccessTokenSigner.getInstance().sign(authCredentials);
+		return ACCESSTOKEN;
+	}
+
+	/**
+	 * 获取  AccessToken
+	 * @param expireInMinutes 过期时长
+	 * @return AccessToken
+	 */
+	public String getAccessToken(Integer expireInMinutes){
+		Integer originMinutes = authCredentials.getExpireInMinutes();
+		if (expireInMinutes != null && expireInMinutes > 0) {
+			authCredentials.setExpireInMinutes(expireInMinutes);
+		}
+		ACCESSTOKEN = AccessTokenSigner.getInstance().sign(authCredentials);
+		authCredentials.setExpireInMinutes(originMinutes);
 		return ACCESSTOKEN;
 	}
 	

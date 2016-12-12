@@ -44,7 +44,7 @@ public class LiveClientTest extends TestCase {
         LogUtils.log("start result=====================\n" + JsonUtils.toJsonString(previewInfo));
 
         // 4. 观看地址，返回观看地址
-        LivePreviewInfoModel watchInfo = client.watch(pushInfo.getChannelWebId(), clientIP);
+        LivePreviewInfoModel watchInfo = client.getPlayStr(pushInfo.getChannelWebId(), clientIP);
         LogUtils.log("watch result=====================\n" + JsonUtils.toJsonString(watchInfo));
 
         // 5. 查看直播状态，创建后随时可以查看直播状态

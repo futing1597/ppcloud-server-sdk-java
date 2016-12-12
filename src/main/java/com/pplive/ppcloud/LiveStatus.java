@@ -9,11 +9,8 @@ package com.pplive.ppcloud;
  *
  */
 public enum LiveStatus {
-	NOTSTART("notstart"),
-	INIT("init"),
-	PREVIEW("preview"),
+	CREATED("created"),
 	LIVING("living"),
-	PAUSE("pause"),
 	STOPPED("stopped"),
 	BROKEN("broken");
 	

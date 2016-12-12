@@ -26,6 +26,12 @@ public class LiveWatchRequest {
 	@JsonIgnore
 	private String clientIp;
 
+	/**
+	 * 生成Token过期时间
+	 * 默认60分钟
+	 */
+	private Integer expireInMinutes = 60;
+
 	public String getChannelWebId() {
 		return channelWebId;
 	}
@@ -40,5 +46,13 @@ public class LiveWatchRequest {
 
 	public void setClientIp(String clientIp) {
 		this.clientIp = clientIp;
+	}
+
+	public Integer getExpireInMinutes() {
+		return expireInMinutes;
+	}
+
+	public void setExpireInMinutes(Integer expireInMinutes) {
+		this.expireInMinutes = expireInMinutes;
 	}
 }

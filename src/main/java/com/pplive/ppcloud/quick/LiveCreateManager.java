@@ -66,20 +66,7 @@ public class LiveCreateManager {
     		return livePushInfoModel;
 		}
     	
-    	//2.init
-    	LiveStatusControlRequest liveStatusControlRequest = new LiveStatusControlRequest();
-    	liveStatusControlRequest.setChannelWebId(liveCreateResponse.getChannelWebId());
-    	liveStatusControlRequest.setLiveStatus(LiveStatus.INIT.toString());
-		
-		BaseResponse lsResponse = LiveManager.getInstance().statusControll(liveStatusControlRequest);
-		
-		if (null == lsResponse || !"0".equals(lsResponse.getErr())) {
-			livePushInfoModel.setErr(lsResponse.getErr());
-    		livePushInfoModel.setMsg(lsResponse.getMsg());
-    		return livePushInfoModel;
-		}
-    	
-    	//3.get url
+    	//2.get url
 		LivePublishUrlRequest livePublishUrlRequest = new LivePublishUrlRequest();
 		livePublishUrlRequest.setChannelWebId(liveCreateResponse.getChannelWebId());
 		livePublishUrlRequest.setClientIp(clientIp);

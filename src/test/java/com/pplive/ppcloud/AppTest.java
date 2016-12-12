@@ -28,7 +28,6 @@ public class AppTest
 	 */
 	public void testCreate()
     {
-		testProxy();
 		LivePushInfoModel lPushInfoModel = LiveCreateManager.getInstance().create(LiveMode.CAMERA.toString(), "117.135.159.4");
 		LogUtils.log(String.format("create: %s", JsonUtils.toJsonString(lPushInfoModel)));
 	}
@@ -38,18 +37,22 @@ public class AppTest
 	 */
 	public void testStart()
     {
-		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnqyboKChoquL4K2hoqrhoaSioaucqQ");
+		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnq6bp6GjnKmL4K2dnqfhoamknK2YpQ");
 		LogUtils.log(String.format("start: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
 	}
 
 	/**
-	 * 获取直播播放地址
+	 * 获取播放地址
 	 * 替换IP 117.135.159.4 为本机出口IP
 	 */
-	public void testWatch()
+	public void testGetPlayStr()
     {
-    	LivePreviewInfoModel lPreviewInfoModel = LiveWatchManager.getInstance().watch("0a2dnqyboKChoquL4K2hoqrhoaSioaucqQ", "117.135.159.4");
-		LogUtils.log(String.format("watch: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
+    	//待上线
+    	//LivePreviewInfoModel lPreviewInfoModel = LivePlayStrManager.getInstance().getPlayStr("0a2dnqyboKOeoaqL4K2hoqrhoaikm6acpQ", "117.135.159.4", 60*12);
+		//LogUtils.log(String.format("getPlayStr: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
+
+		LivePreviewInfoModel lPreviewInfoModel = LiveWatchManager.getInstance().watch("0a2dnq6bp6GkmayL4K2dnqfhoamknK6cow", "117.135.159.4");
+		LogUtils.log(String.format("getPlayStr: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
     }
 
 	/**
@@ -57,7 +60,7 @@ public class AppTest
 	 */
 	public void testStop()
     {
-		LiveStopManager.getInstance().stop("0a2dnqyaqaijmqmL4K2hoqrhoaSioaeXqA");
+		LiveStopManager.getInstance().stop("0a2dnq6bp6GkmayL4K2dnqfhoamknK6cow");
 	}
 
 	/**
@@ -66,7 +69,7 @@ public class AppTest
 	 */
 	public void testStatus()
     {
-		LiveStatusManager.getInstance().status("0a2dnqyaqaijmqmL4K2hoqrhoaSioaeXqA", "117.135.159.4");
+		LiveStatusManager.getInstance().status("0a2dnq6bp6GkmayL4K2dnqfhoamknK6cow", "117.135.159.4");
 	}
 
 	/**
@@ -74,6 +77,6 @@ public class AppTest
 	 */
 	public void testStatusChange()
 	{
-		LiveStatusControllManager.getInstance().statusChange("0a2dnqyaqaijmqmL4K2hoqrhoaSioaeXqA", LiveStatus.STOPPED.toString());
+		LiveStatusControllManager.getInstance().statusChange("0a2dnq6bp6GjnKmL4K2dnqfhoamknK2YpQ", LiveStatus.STOPPED.toString());
 	}
 }

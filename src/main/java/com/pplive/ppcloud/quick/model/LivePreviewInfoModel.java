@@ -18,6 +18,12 @@ public class LivePreviewInfoModel {
 	 */
 	@JsonProperty("channel_web_id")
 	private String channelWebId;
+
+	/**
+	 * 视频类型(1:点播;2:直播)
+	 */
+	@JsonProperty("channel_type")
+	private String channelType;
 	
 	/**
 	 * rtmp 播放地址
@@ -61,6 +67,14 @@ public class LivePreviewInfoModel {
 
 	public void setChannelWebId(String channelWebId) {
 		this.channelWebId = channelWebId;
+	}
+
+	public String getChannelType() {
+		return channelType;
+	}
+
+	public void setChannelType(String channelType) {
+		this.channelType = channelType;
 	}
 
 	public String getRtmpUrl() {
