@@ -4,15 +4,15 @@
  */
 package com.pplive.ppcloud.quick;
 
-import com.pplive.ppcloud.LiveStatus;
+import com.pplive.ppcloud.HostConstants;
+import com.pplive.ppcloud.auth.AccessTokenSigner;
 import com.pplive.ppcloud.live.LiveManager;
 import com.pplive.ppcloud.quick.model.LivePushInfoModel;
 import com.pplive.ppcloud.request.LiveCreateRequest;
 import com.pplive.ppcloud.request.LivePublishUrlRequest;
-import com.pplive.ppcloud.request.LiveStatusControlRequest;
-import com.pplive.ppcloud.response.BaseResponse;
 import com.pplive.ppcloud.response.LiveCreateResponse;
 import com.pplive.ppcloud.response.LivePublishUrlResponse;
+
 
 /**
  * @author chaogao
@@ -85,6 +85,10 @@ public class LiveCreateManager {
 				lPublishUrlResponse.getAddr()[0],
 				lPublishUrlResponse.getPath()));
 		livePushInfoModel.setToken(lPublishUrlResponse.getName());
+
+		//3.network sense, expiretime = 1 day
+		livePushInfoModel.setNetworkSenseUrl(String.format(HostConstants.NETWORK_SENSE_URL,
+				livePushInfoModel.getChannelWebId(), title, AccessTokenSigner.getInstance().getAccessToken(60*24)));
 		
 		return livePushInfoModel;
 	}

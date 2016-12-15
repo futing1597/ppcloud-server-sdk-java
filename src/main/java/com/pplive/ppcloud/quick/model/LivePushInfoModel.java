@@ -29,6 +29,12 @@ public class LivePushInfoModel {
 	 * 推流鉴权信息
 	 */
 	private String token;
+
+	/**
+	 * 网络检测URL
+	 */
+	@JsonProperty("network_sense_url")
+	private String networkSenseUrl;
 	
 	/**
 	 * 错误代码
@@ -64,6 +70,14 @@ public class LivePushInfoModel {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getNetworkSenseUrl() {
+		return networkSenseUrl;
+	}
+
+	public void setNetworkSenseUrl(String networkSenseUrl) {
+		this.networkSenseUrl = networkSenseUrl;
 	}
 
 	public String getErr() {

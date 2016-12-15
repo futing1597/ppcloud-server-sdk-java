@@ -20,6 +20,11 @@ public class HostConstants {
 	 * m3u8播放地址
 	 */
 	public static final String M3U8_PLAY_URL = "http://player.pptvyun.com/svc/m3u8player/pl/%s.m3u8";
+
+	/**
+	 * 网络检测地址
+	 */
+	public static final String NETWORK_SENSE_URL = "http://www.pptvyun.com/pushFlow/index.html?channelwebid=%s&title=%s&autk=%s&_cotk=";
 	
 	/**
 	 * 创建直播接口
