@@ -47,11 +47,7 @@ public class AppTest
 	 */
 	public void testGetPlayStr()
     {
-    	//待上线
-    	//LivePreviewInfoModel lPreviewInfoModel = LivePlayStrManager.getInstance().getPlayStr("0a2dnqyboKOeoaqL4K2hoqrhoaikm6acpQ", "117.135.159.4", 60*12);
-		//LogUtils.log(String.format("getPlayStr: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
-
-		LivePreviewInfoModel lPreviewInfoModel = LiveWatchManager.getInstance().watch("0a2dnq6bp6GkmayL4K2dnqfhoamknK6cow", "117.135.159.4");
+    	LivePreviewInfoModel lPreviewInfoModel = LivePlayStrManager.getInstance().getPlayStr("0a2dnqyboKOkm62L4K2km6nhoaikm6iWow", "117.135.159.4", 60*12);
 		LogUtils.log(String.format("getPlayStr: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
     }
 

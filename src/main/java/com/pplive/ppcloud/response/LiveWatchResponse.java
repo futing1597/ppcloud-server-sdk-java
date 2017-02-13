@@ -5,6 +5,8 @@
 
 package com.pplive.ppcloud.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author chaogao
  *
@@ -40,6 +42,12 @@ public class LiveWatchResponse extends BaseResponse {
 	 * cpn
 	 */
 	private String cpn;
+
+	/**
+	 * 视频类型
+	 */
+	@JsonProperty("ydpf_pt")
+	private String ydpfPt;
 
 	public LiveWatchMediaResponse[] getMedias() {
 		return medias;
@@ -87,5 +95,13 @@ public class LiveWatchResponse extends BaseResponse {
 
 	public void setCpn(String cpn) {
 		this.cpn = cpn;
+	}
+
+	public String getYdpfPt() {
+		return ydpfPt;
+	}
+
+	public void setYdpfPt(String ydpfPt) {
+		this.ydpfPt = ydpfPt;
 	}
 }

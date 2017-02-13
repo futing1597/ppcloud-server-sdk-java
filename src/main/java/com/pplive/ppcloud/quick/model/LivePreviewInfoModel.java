@@ -48,6 +48,12 @@ public class LivePreviewInfoModel {
 	 */
 	@JsonProperty("rtmps_url")
 	private LivePreviewInfoCftModel[] rtmpsUrl;
+
+	/**
+	 * HLS多码流 播放地址
+	 */
+	@JsonProperty("m3u8s_url")
+	private M3u8PlayInfoCftModel[] m3u8sUrl;
 	
 	/**
 	 * 错误代码
@@ -107,6 +113,14 @@ public class LivePreviewInfoModel {
 
 	public void setRtmpsUrl(LivePreviewInfoCftModel[] rtmpsUrl) {
 		this.rtmpsUrl = rtmpsUrl;
+	}
+
+	public M3u8PlayInfoCftModel[] getM3u8sUrl() {
+		return m3u8sUrl;
+	}
+
+	public void setM3u8sUrl(M3u8PlayInfoCftModel[] m3u8sUrl) {
+		this.m3u8sUrl = m3u8sUrl;
 	}
 
 	public String getErr() {

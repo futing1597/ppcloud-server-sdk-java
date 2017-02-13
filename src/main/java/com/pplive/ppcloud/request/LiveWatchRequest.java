@@ -32,6 +32,12 @@ public class LiveWatchRequest {
 	 */
 	private Integer expireInMinutes = 60;
 
+	/**
+	 * 设备类型
+	 */
+	@JsonProperty("device_type")
+	private String deviceType;
+
 	public String getChannelWebId() {
 		return channelWebId;
 	}
@@ -54,5 +60,13 @@ public class LiveWatchRequest {
 
 	public void setExpireInMinutes(Integer expireInMinutes) {
 		this.expireInMinutes = expireInMinutes;
+	}
+
+	public String getDeviceType() {
+		return deviceType;
+	}
+
+	public void setDeviceType(String deviceType) {
+		this.deviceType = deviceType;
 	}
 }

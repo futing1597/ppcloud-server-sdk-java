@@ -4,6 +4,7 @@
  */
 package com.pplive.ppcloud.quick;
 
+import com.pplive.ppcloud.PlayDeviceType;
 import com.pplive.ppcloud.quick.model.LivePreviewInfoCftModel;
 import org.apache.commons.lang3.StringUtils;
 
@@ -51,9 +52,12 @@ public class LiveWatchManager {
 	 */
 	public LivePreviewInfoModel watch(LiveWatchRequest lWatchRequest) {
 		LivePreviewInfoModel lPreviewInfoModel = new LivePreviewInfoModel();
-		
+
+		String deviceType = lWatchRequest.getDeviceType();
+		if (StringUtils.isEmpty(deviceType)) {
+			deviceType = PlayDeviceType.WEB_CLOUDPLAY.toString();
+		}
 		//play url
-		
 		LiveWatchResponse lWatchResponse = LiveManager.getInstance().watch(lWatchRequest);
 		if (null == lWatchResponse || !"0".equals(lWatchResponse.getErr())) {
 			lPreviewInfoModel.setErr(lWatchResponse.getErr());
@@ -79,7 +83,8 @@ public class LiveWatchManager {
 			
 			String mProtocol = lWatchMediaResponse.getProtocol();
 			if (LiveProtocol.RTMP.toString().equalsIgnoreCase(mProtocol)) {
-				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
+				lPreviewInfoModel.setRtmpUrl(String.format("%s?ppyunid=%s&cpn=%s&type=%s&ydpf_pt=%s", pString, lWatchResponse.getPpyunid()
+						, lWatchResponse.getCpn(), deviceType, lWatchResponse.getYdpfPt()));
 				
 				if (lWatchMediaResponse.getChannels()[0].getCft() != null) {
 					LivePreviewInfoCftModel[] rtmpsUrl = new LivePreviewInfoCftModel[lWatchMediaResponse.getChannels()[0].getCft().getItem().length];
@@ -89,19 +94,22 @@ public class LiveWatchManager {
 						rtmpsUrl[rtmpIndex].setFt(itemResponse.getFt());
 						rtmpsUrl[rtmpIndex].setName(itemResponse.getName());
 						rtmpsUrl[rtmpIndex].setftCn(itemResponse.getFt_cn());
-						rtmpsUrl[rtmpIndex++].setRtmpUrl(String.format("%s://%s%s/%s?ppyunid=%s&cpn=%s",
+						rtmpsUrl[rtmpIndex++].setRtmpUrl(String.format("%s://%s%s/%s?ppyunid=%s&cpn=%s&type=%s&ydpf_pt=%s",
 								protoStr,
 								lWatchMediaResponse.getChannels()[0].getAddr()[0],
 								lWatchMediaResponse.getChannels()[0].getPath(),
 								itemResponse.getName(),
 								lWatchResponse.getPpyunid(),
-								lWatchResponse.getCpn()));
+								lWatchResponse.getCpn(),
+								deviceType,
+								lWatchResponse.getYdpfPt()));
 					}
 					lPreviewInfoModel.setRtmpsUrl(rtmpsUrl);
 				}
 				
 			} else if (LiveProtocol.HDL.toString().equalsIgnoreCase(mProtocol)) {
-				lPreviewInfoModel.setHdlUrl(String.format("%s?ppyunid=%s&cpn=%s", pString, lWatchResponse.getPpyunid(), lWatchResponse.getCpn()));
+				lPreviewInfoModel.setHdlUrl(String.format("%s?ppyunid=%s&cpn=%s&type=%s&ydpf_pt=%s", pString, lWatchResponse.getPpyunid()
+						, lWatchResponse.getCpn(), deviceType, lWatchResponse.getYdpfPt()));
 			}
 			if (StringUtils.isNotEmpty(lWatchRequest.getChannelWebId())) {
 				lPreviewInfoModel.setM3u8Url(String.format(HostConstants.M3U8_PLAY_URL, lWatchRequest.getChannelWebId()));
