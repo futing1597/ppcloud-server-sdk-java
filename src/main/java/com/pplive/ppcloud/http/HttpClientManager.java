@@ -5,6 +5,7 @@
 
 package com.pplive.ppcloud.http;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.pplive.ppcloud.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -197,6 +198,10 @@ public class HttpClientManager {
     }
 
     public <T> String execPostRequestWithHeaders(URI uri, Map<String, String> headers, T obj, HttpProxyConfig proxyConfig) {
+        return execPostRequestWithHeaders(uri, headers, obj, null, proxyConfig);
+    }
+
+    public <T> String execPostRequestWithHeaders(URI uri, Map<String, String> headers, T obj, Map<String, String> customeParasMap, HttpProxyConfig proxyConfig) {
         HttpPost request = new HttpPost(uri);
         addContentType(request, jsonContentType);
         if(headers != null && !headers.isEmpty()) {
@@ -209,6 +214,13 @@ public class HttpClientManager {
         }
 
         String json1 = JsonUtils.toJsonString(obj);
+        if (customeParasMap != null && customeParasMap.size() > 0) {
+            ObjectNode jsonNode = JsonUtils.jsonNodeOf(json1).deepCopy();
+            for (Map.Entry<String, String> entry : customeParasMap.entrySet()) {
+                jsonNode.put(entry.getKey(), entry.getValue());
+            }
+            json1 = JsonUtils.toJsonString(jsonNode);
+        }
 
         String res;
         try {

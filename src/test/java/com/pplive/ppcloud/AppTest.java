@@ -1,5 +1,7 @@
 package com.pplive.ppcloud;
 
+import com.pplive.ppcloud.auth.AccessTokenSigner;
+import com.pplive.ppcloud.auth.AuthCredentials;
 import com.pplive.ppcloud.http.HttpProxyConfig;
 import com.pplive.ppcloud.live.LiveManager;
 import com.pplive.ppcloud.quick.*;
@@ -12,6 +14,20 @@ import junit.framework.TestCase;
 public class AppTest 
     extends TestCase
 {
+
+	/**
+	 * 设置账号
+	 */
+	public void testAccount()
+	{
+		String ACCESS_KEY = "替换您的AccessKey";
+		String SECRET_KEY = "替换您的SecretKey";
+
+		AuthCredentials authCredentials = new AuthCredentials();
+		authCredentials.setAccessKey(ACCESS_KEY);
+		authCredentials.setSecretKey(SECRET_KEY);
+		AccessTokenSigner.getInstance().setAuthCredentials(authCredentials);
+	}
 
 	/**
 	 * 设置代理
@@ -28,7 +44,7 @@ public class AppTest
 	 */
 	public void testCreate()
     {
-		LivePushInfoModel lPushInfoModel = LiveCreateManager.getInstance().create(LiveMode.CAMERA.toString(), "117.135.159.4");
+		LivePushInfoModel lPushInfoModel = LiveCreateManager.getInstance().create(LiveMode.XSPLIT.toString(), "117.135.159.4");
 		LogUtils.log(String.format("create: %s", JsonUtils.toJsonString(lPushInfoModel)));
 	}
 
@@ -37,7 +53,7 @@ public class AppTest
 	 */
 	public void testStart()
     {
-		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnq6bp6GjnKmL4K2dnqfhoamknK2YpQ");
+		LivePreviewInfoModel lPreviewInfoModel = LiveStartManager.getInstance().start("0a2dnq6dpKWeoamL4K2dmqzhoqOemqybow");
 		LogUtils.log(String.format("start: %s", JsonUtils.toJsonString(lPreviewInfoModel)));
 	}
 
@@ -65,7 +81,7 @@ public class AppTest
 	 */
 	public void testStatus()
     {
-		LiveStatusManager.getInstance().status("0a2dnq6bp6GkmayL4K2dnqfhoamknK6cow", "117.135.159.4");
+		LiveStatusManager.getInstance().status("0a2dnqyboKOkmaqL4K2hoqrhoaikm6eepg", "117.135.159.4");
 	}
 
 	/**

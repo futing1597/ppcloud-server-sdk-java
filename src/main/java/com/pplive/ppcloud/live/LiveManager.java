@@ -58,7 +58,7 @@ public class LiveManager {
 		LiveCreateResponse response = null;
 		setHeader();
 		URI uri = getUri(HostConstants.HOST_URL+HostConstants.CREATE_LIVE_URL);
-		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request, proxyConfig);
+		String jsonRes = HttpClientManager.getInstance().execPostRequestWithHeaders(uri, headerMap, request, request.getCustomParas(), proxyConfig);
 		LogUtils.log(String.format("create response: %s", jsonRes));
 		if (StringUtils.isNotEmpty(jsonRes)) {
 			LiveCreateData liveCreateData = JsonUtils.fromJsonString(jsonRes, LiveCreateData.class);

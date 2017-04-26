@@ -5,7 +5,10 @@
 
 package com.pplive.ppcloud.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Map;
 
 /**
  * @author chaogao
@@ -51,6 +54,12 @@ public class LiveCreateRequest {
 	 */
 	@JsonProperty("end_time")
 	private Long endTime;
+
+	/**
+	 * 自定义参数
+	 */
+	@JsonIgnore
+	private Map<String, String> customParas;
 
 	public String getTitle() {
 		return title;
@@ -108,4 +117,11 @@ public class LiveCreateRequest {
 		this.endTime = endTime;
 	}
 
+	public Map<String, String> getCustomParas() {
+		return customParas;
+	}
+
+	public void setCustomParas(Map<String, String> customParas) {
+		this.customParas = customParas;
+	}
 }
